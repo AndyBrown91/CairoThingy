@@ -57,6 +57,13 @@ def check_application_exists(name):
 if not check_application_exists("git"):
     raise RuntimeError("Couldn't find git")
 
+projucer_files = []
+for projucer in get_script_dir().glob("*.jucer"):
+    projucer_files.append(projucer)
+
+if len(projucer_files) == 0:
+    raise RuntimeError("Couldn't find a projucer file - Are you running this script from the root of the project? cd in to it before running this")
+
 vcpkg_path = get_script_dir() / "vcpkg"
 
 if not vcpkg_path.exists():
@@ -97,4 +104,49 @@ for f in Path(libs_path / "debug" / "lib").glob("*" + library_extension):
 if is_windows():
     # libexpat doesn't follow the same pattern in that it tags an MD on the end
     libexpat = Path(libs_path / "debug" / "lib" / "libexpatdMD.lib")
-    libexpat.rename(str(libexpat).replace("libexpatdMD.lib", "libexpatMD.lib"))
+    if libexpat.exists():
+        libexpat.rename(str(libexpat).replace("libexpatdMD.lib", "libexpatMD.lib"))
+
+# add library files/headers to Projucer
+for projucer in projucer_files:
+    import xml.etree.ElementTree as ET
+    tree = ET.parse(str(projucer))
+    root = tree.getroot()
+
+    if not "headerPath" in root.attrib:
+        root.set("headerPath", "")
+
+    headers = root.attrib["headerPath"]
+    if not "../../external_libs/include" in headers:
+        root.set("headerPath", headers + "\n../../external_libs/include")
+
+    formats = root.find("EXPORTFORMATS")
+
+    for target in formats:
+        is_vs = "VS" in target.tag
+
+        if (is_windows() and is_vs) or (not is_windows() and not is_vs):
+            if not "externalLibraries" in target.attrib:
+                target.set("externalLibraries", "")
+
+            libs = target.attrib["externalLibraries"]
+            for f in Path(libs_path / "debug" / "lib").glob("*" + library_extension):
+                # find libraries
+                lib_name = f.name if is_vs else f.name.replace("lib", "").replace(".a", "").replace(".lib", "")
+                libs = libs + "\n" + lib_name
+
+            target.set("externalLibraries", libs)
+
+            configs = target.find("CONFIGURATIONS")
+            for config in configs:
+                if not "libraryPath" in config.attrib:
+                    config.set("libraryPath", "")
+
+                libs_dir = "../../external_libs/debug/lib" if config.attrib["isDebug"] == "1" else "../../external_libs/lib"
+                lib_search = config.attrib["libraryPath"]
+
+                if not libs_dir in lib_search:
+                    lib_search = lib_search + "\n" + libs_dir
+                    config.set("libraryPath", lib_search)
+
+    tree.write(projucer)
