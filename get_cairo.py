@@ -88,11 +88,13 @@ libs_path = get_script_dir() / "external_libs"
 if not libs_path.exists():
     os.symlink(vcpkg_path / "installed" / triplet, libs_path)
 
+library_extension = ".lib" if is_windows() else ".a"
 # Projucer doesn't let you specify different library names based on target (Debug/Release) - So rename the downloaded libraries
-for f in Path(libs_path / "debug" / "lib").glob("*.lib"):
-    if f.name.endswith("d.lib"):
-        f.rename(str(f).replace("d.lib", ".lib"))
+for f in Path(libs_path / "debug" / "lib").glob("*" + library_extension):
+    if f.name.endswith("d" + library_extension):
+        f.rename(str(f).replace("d" + library_extension, library_extension))
 
-# libexpat doesn't follow the same pattern in that it tags an MD on the end
-libexpat = Path(libs_path / "debug" / "lib" / "libexpatMD.lib")
-libexpat.rename(str(libexpat).replace("libexpatdMD.lib", "libexpatMD.lib"))
+if is_windows():
+    # libexpat doesn't follow the same pattern in that it tags an MD on the end
+    libexpat = Path(libs_path / "debug" / "lib" / "libexpatMD.lib")
+    libexpat.rename(str(libexpat).replace("libexpatdMD.lib", "libexpatMD.lib"))

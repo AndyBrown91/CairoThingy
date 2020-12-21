@@ -20,10 +20,10 @@
         <MODULEPATH id="juce_events" path="E:/Work/JUCE/modules"/>
       </MODULEPATHS>
     </VS2019>
-    <XCODE_MAC targetFolder="Builds/MacOSX">
+    <XCODE_MAC targetFolder="Builds/MacOSX" externalLibraries="brotlidec-static&#10;bz2&#10;cairo&#10;freetype&#10;png16&#10;z&#10;png&#10;json-c&#10;pixman-1&#10;brotlienc-static&#10;brotlicommon-static&#10;intl&#10;expat&#10;fontconfig">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="CairoThingy"/>
-        <CONFIGURATION isDebug="0" name="Release" targetName="CairoThingy"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="CairoThingy" libraryPath="../../external_libs/debug/lib"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="CairoThingy" libraryPath="../../external_libs/lib"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="E:/Work/JUCE/modules"/>
@@ -39,5 +39,6 @@
   </MODULES>
   <LIVE_SETTINGS>
     <WINDOWS/>
+    <OSX/>
   </LIVE_SETTINGS>
 </JUCERPROJECT>
