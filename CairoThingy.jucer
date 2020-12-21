@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="Ur2GkO" name="CairoThingy" projectType="consoleapp" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" headerPath="../../external_libs/include">
+  <MAINGROUP id="ktl1P0" name="CairoThingy">
+    <GROUP id="{BFE9771B-4B6F-E7B1-1408-3A5934126502}" name="Source">
+      <FILE id="rX1hq3" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <EXPORTFORMATS>
+    <VS2019 targetFolder="Builds/VisualStudio2019">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="CairoThingy"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="CairoThingy"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="E:/Work/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="E:/Work/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="E:/Work/JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2019>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="CairoThingy"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="CairoThingy"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="E:/Work/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="E:/Work/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="E:/Work/JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <LIVE_SETTINGS>
+    <WINDOWS/>
+  </LIVE_SETTINGS>
+</JUCERPROJECT>
