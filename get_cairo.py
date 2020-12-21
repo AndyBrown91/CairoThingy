@@ -96,5 +96,5 @@ for f in Path(libs_path / "debug" / "lib").glob("*" + library_extension):
 
 if is_windows():
     # libexpat doesn't follow the same pattern in that it tags an MD on the end
-    libexpat = Path(libs_path / "debug" / "lib" / "libexpatMD.lib")
+    libexpat = Path(libs_path / "debug" / "lib" / "libexpatdMD.lib")
     libexpat.rename(str(libexpat).replace("libexpatdMD.lib", "libexpatMD.lib"))
