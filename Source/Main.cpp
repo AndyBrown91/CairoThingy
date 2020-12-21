@@ -40,5 +40,7 @@ int main (int argc, char* argv[])
     // Destroying PDF surface
     cairo_surface_destroy(csurface);
 
+    output.startAsProcess();
+
     return 0;
 }

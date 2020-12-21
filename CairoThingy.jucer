@@ -9,10 +9,10 @@
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
   <EXPORTFORMATS>
-    <VS2019 targetFolder="Builds/VisualStudio2019">
+    <VS2019 targetFolder="Builds/VisualStudio2019" externalLibraries="brotlicommon-static.lib&#10;brotlidec-static.lib&#10;brotlienc-static.lib&#10;bz2.lib&#10;cairo.lib&#10;charset.lib&#10;fontconfig.lib&#10;freetype.lib&#10;iconv.lib&#10;intl.lib&#10;json-c.lib&#10;libexpatMD.lib&#10;libpng16.lib&#10;pixman-1.lib&#10;pthreadVC3.lib&#10;pthreadVCE3.lib&#10;pthreadVSE3.lib&#10;zlib.lib">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="CairoThingy"/>
-        <CONFIGURATION isDebug="0" name="Release" targetName="CairoThingy"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="CairoThingy" libraryPath="../../external_libs/debug/lib"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="CairoThingy" libraryPath="../../external_libs/lib"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="E:/Work/JUCE/modules"/>
