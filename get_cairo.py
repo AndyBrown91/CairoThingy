@@ -132,8 +132,9 @@ for projucer in projucer_files:
             libs = target.attrib["externalLibraries"]
             for f in Path(libs_path / "debug" / "lib").glob("*" + library_extension):
                 # find libraries
-                lib_name = f.name if is_vs else f.name.replace("lib", "").replace(".a", "").replace(".lib", "")
-                libs = libs + "\n" + lib_name
+                if f.is_file() and not f.is_symlink():
+                    lib_name = f.name if is_vs else f.name.replace("lib", "").replace(".a", "").replace(".lib", "")
+                    libs = libs + "\n" + lib_name
 
             target.set("externalLibraries", libs)
 
